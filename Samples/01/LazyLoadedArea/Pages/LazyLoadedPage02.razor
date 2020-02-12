@@ -1,0 +1,7 @@
+﻿@page "/lazyLoaded/page02"
+
+@inject ITimeProvider _timeProvider
+
+<h1>Lazy load feature works!</h1>
+
+Current time is: @_timeProvider.GetTime()

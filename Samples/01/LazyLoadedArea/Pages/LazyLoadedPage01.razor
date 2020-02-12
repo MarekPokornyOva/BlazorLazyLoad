@@ -1,0 +1,7 @@
+﻿@page "/lazyLoaded/page01"
+
+@inject IMessageProvider _messageProvider
+
+<h1>Lazy load feature works!</h1>
+
+Message of the day: @_messageProvider.GetMessage()
