@@ -16,6 +16,7 @@ namespace BlazorLazyLoad
 		internal static IServiceProvider ServiceProvider;
 		internal static IServiceCollection Services;
 		internal static WebAssemblyHost Host;
+		internal static IRouterEnvelope Router;
 
 		[JSInvokable("NotifyLocationChanged")]
 		public static async Task NotifyLocationChanged(string uri,bool isInterceptedLink)

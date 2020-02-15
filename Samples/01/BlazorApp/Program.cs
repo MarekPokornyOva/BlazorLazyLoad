@@ -12,7 +12,6 @@ namespace BlazorApp
 		{
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
 			builder.RootComponents.Add<App>("app");
-			builder.RootComponents.Add<LazyLoadDirectHandler>("body");
 			LazyLoadServicesBuilder lazyLoadServicesBuilder = builder.Services.AddLazyLoad<AreaAssemblyLazyLoadResolver>();
 
 			WebAssemblyHost host = builder.Build();

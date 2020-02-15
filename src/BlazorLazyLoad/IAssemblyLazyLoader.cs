@@ -20,7 +20,9 @@ namespace BlazorLazyLoad
 	{
 		public abstract Task ResolveAsync(string uri,bool isInterceptedLink);
 
-		public void LoadServices(Assembly assembly)
+		protected IRouterEnvelope Router => JSInteropMethods.Router;
+
+		public static void LoadServices(Assembly assembly)
 		{
 			//Find Program.ConfigureServices(IServiceCollection) method.
 			MethodInfo configureServices = FindDefaultConfigureServicesMethod(assembly);
@@ -35,7 +37,7 @@ namespace BlazorLazyLoad
 			=> assembly.GetTypes().FirstOrDefault(x => string.Equals(x.Name,"Program",StringComparison.Ordinal))?
 				.GetMethod("ConfigureServices",BindingFlags.Public|BindingFlags.Static,null,new Type[] { typeof(IServiceCollection) },null);
 
-		public void LoadServices(MethodInfo configureServices)
+		public static void LoadServices(MethodInfo configureServices)
 		{
 			//Call the ConfigureServices(IServiceCollection) method.
 			IServiceCollection services = JSInteropMethods.Services;
