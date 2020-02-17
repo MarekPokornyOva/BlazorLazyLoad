@@ -1,11 +1,9 @@
 ﻿#region using
 using BlazorLazyLoad;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Routing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 #endregion using
@@ -14,12 +12,10 @@ namespace BlazorApp
 {
 	public class AreaAssemblyLazyLoadResolver:AssemblyLazyLoadResolverBase
 	{
-		readonly HttpClient _httpClient;
-		readonly NavigationManager _navigationManager;
-		public AreaAssemblyLazyLoadResolver(HttpClient httpClient,NavigationManager navigationManager)
+		readonly IAssemblyDependencyResolver _assemblyDependencyResolver;
+		public AreaAssemblyLazyLoadResolver(IAssemblyDependencyResolver assemblyDependencyResolver)
 		{
-			_httpClient=httpClient;
-			_navigationManager=navigationManager;
+			_assemblyDependencyResolver=assemblyDependencyResolver;
 		}
 
 		public override async Task ResolveAsync(string uri,bool isInterceptedLink)
@@ -38,27 +34,20 @@ namespace BlazorApp
 			if (additionalAssemblies.Any(x => string.Equals(x.GetName().Name,assemblyName,StringComparison.OrdinalIgnoreCase)))
 				return;
 
-			//Load assembly and its services.
-			Task<byte[]> dllBytes = _httpClient.GetByteArrayAsync($"_framework/_bin/{assemblyName}.dll");
-			Task<byte[]> pdbBytes;
-			try
-			{
-				pdbBytes=_httpClient.GetByteArrayAsync($"_framework/_bin/{assemblyName}.pdb");
-			}
-			catch
-			{
-				pdbBytes=null;
-			}
+			//Load assembly including its dependencies
+			IEnumerable<Assembly> newAssemblies = await _assemblyDependencyResolver.ResolveAsync(assemblyName);
+			if (!newAssemblies.Any())
+				return;
 
-			//It's needed to manage referenced assemblies somehow. How to get the list before assembly load? Can't use AppDomain.AssemblyResolve as it's sync event. Use System.Reflection.Metadata?
-			Assembly asm=pdbBytes==null ? Assembly.Load(await dllBytes) : Assembly.Load(await dllBytes,await pdbBytes);
-			LoadServices(asm);
+			//Register also services
+			foreach (Assembly asm in newAssemblies)
+				LoadServices(asm);
 
 			//Inject the assembly to the router.
 			ParameterView pv = ParameterView.FromDictionary(router.GetType().GetProperties()
 				.Where(x => x.CustomAttributes.Any(x => x.AttributeType==typeof(ParameterAttribute)))
 				.ToDictionary(pi => pi.Name,pi => string.Equals(pi.Name,nameof(Router.AdditionalAssemblies),StringComparison.Ordinal)
-					? additionalAssemblies.Concat(new Assembly[] { asm }).ToArray()
+					? additionalAssemblies.Concat(newAssemblies).ToArray()
 					: pi.GetValue(router)));
 			await router.SetParametersAsync(pv);
 		}

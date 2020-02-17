@@ -22,10 +22,6 @@ Splitting an application speeds up its start and also saves network traffic.
 6) Create project containing lazy loaded pages - see \Samples\01\LazyLoadedArea.
 7) The built assembly has to be copied to the main project's dist\bin folder.
 
-### Known issues
-- this demo doesn't handle referenced assemblies. All code needs to be included in the lazy loaded assembly or previously loaded ones.
-	Issue: It's needed to get the list before assembly load. Can't use AppDomain.AssemblyResolve as it's sync event. Use System.Reflection.Metadata?
-
 ### Notes
 - all is provided as is without any warranty.
 - the target of this concept has been "make it functional for any price". Therefore some pieces are bit "hacky".
