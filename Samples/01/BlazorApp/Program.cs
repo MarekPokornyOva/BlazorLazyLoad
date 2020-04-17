@@ -1,7 +1,10 @@
-﻿#region using
+#region using
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Blazor.Hosting;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using BlazorLazyLoad;
+using Microsoft.Extensions.DependencyInjection;
 #endregion using
 
 namespace BlazorApp
@@ -12,6 +15,8 @@ namespace BlazorApp
 		{
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
 			builder.RootComponents.Add<App>("app");
+
+			builder.Services.AddSingleton(new HttpClient { BaseAddress=new Uri(builder.HostEnvironment.BaseAddress) });
 			LazyLoadServicesBuilder lazyLoadServicesBuilder = builder.Services.AddLazyLoad<AreaAssemblyLazyLoadResolver>();
 
 			WebAssemblyHost host = builder.Build();

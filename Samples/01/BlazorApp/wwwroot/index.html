@@ -3,11 +3,11 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>BlazorApp</title>
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/site.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -24,7 +24,7 @@
 		var DotNet_invokeMethodAsync = DotNet.invokeMethodAsync;
 		DotNet.invokeMethodAsync = function ()
 		{
-			if (arguments[1] === "NotifyLocationChanged" && arguments[0] === "Microsoft.AspNetCore.Blazor")
+			if (arguments[1] === "NotifyLocationChanged" && arguments[0] === "Microsoft.AspNetCore.Components.WebAssembly")
 				arguments[0] = "BlazorLazyLoad"; //Call our handler instead of default one. Default will be called from our.
 			return DotNet_invokeMethodAsync.apply(null, arguments);
 		}

@@ -20,12 +20,15 @@ Splitting an application speeds up its start and also saves network traffic.
 4) Register services - call builder.Services.AddLazyLoad<AreaAssemblyLazyLoadResolver>(); within Program.Main() method.
 5) Redirect navigation event to custom handler - see \Samples\01\BlazorApp\wwwroot\index.html.
 6) Create project containing lazy loaded pages - see \Samples\01\LazyLoadedArea.
-7) The built assembly has to be copied from dist\\_framework\\_bin to the main project's dist\bin folder.
+7) The built assembly has to be copied from wwwroot\\_framework\\_bin to the main project's wwwroot\\_framework\\bin folder. It's recommended to use gzipped versions.
 
 ### Notes
-- all is provided as is without any warranty.
-- the target of this concept has been "make it functional for any price". Therefore some pieces are bit "hacky".
-- developed with version 3.2.0-preview1.20073.1 wasm.
+- All is provided as is without any warranty.
+- The target of this concept has been "make it functional for any price". Therefore some pieces are bit "hacky".
+- Developed with version 3.2.0-preview4.20210.8 wasm.
+
+### Release notes
+[See](./ReleaseNotes.md)
 
 ### Thanks to Blazor team members for their work
 ### Thanks to Chris Sainty for his article https://chrissainty.com/an-in-depth-look-at-routing-in-blazor/
