@@ -10,6 +10,7 @@ Splitting an application speeds up its start and also saves network traffic.
 
 ### Features
 - Lazy loads assemblies.
+- Lazy resolving on both page and component level.
 - Registers included pages for routing.
 - Registers included services to ServiceProvider.
 
@@ -21,6 +22,7 @@ Splitting an application speeds up its start and also saves network traffic.
 5) Redirect navigation event to custom handler - see \Samples\01\BlazorApp\wwwroot\index.html.
 6) Create project containing lazy loaded pages - see \Samples\01\LazyLoadedArea.
 7) The built assembly has to be copied from wwwroot\\_framework\\_bin to the main project's wwwroot\\_framework\\bin folder. It's recommended to use gzipped versions.
+8) See \Samples\01\BlazorApp\LazyComponent for component level lazy loading.
 
 ### Notes
 - All is provided as is without any warranty.
