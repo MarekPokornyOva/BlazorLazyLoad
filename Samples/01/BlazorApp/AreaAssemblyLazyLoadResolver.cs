@@ -46,7 +46,7 @@ namespace BlazorApp
 			//Inject the assembly to the router.
 			ParameterView pv = ParameterView.FromDictionary(router.GetType().GetProperties()
 				.Where(x => x.CustomAttributes.Any(x => x.AttributeType==typeof(ParameterAttribute)))
-				.ToDictionary(pi => pi.Name,pi => string.Equals(pi.Name,nameof(Router.AdditionalAssemblies),StringComparison.Ordinal)
+				.ToDictionary(pi => pi.Name,pi => string.Equals(pi.Name,nameof(IRouterEnvelope.AdditionalAssemblies),StringComparison.Ordinal)
 					? additionalAssemblies.Concat(newAssemblies).ToArray()
 					: pi.GetValue(router)));
 			await router.SetParametersAsync(pv);

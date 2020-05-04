@@ -16,7 +16,7 @@ namespace BlazorApp
 			var builder = WebAssemblyHostBuilder.CreateDefault(args);
 			builder.RootComponents.Add<App>("app");
 
-			builder.Services.AddSingleton(new HttpClient { BaseAddress=new Uri(builder.HostEnvironment.BaseAddress) });
+			builder.Services.AddTransient(sp => new HttpClient { BaseAddress=new Uri(builder.HostEnvironment.BaseAddress) });
 			LazyLoadServicesBuilder lazyLoadServicesBuilder = builder.Services.AddLazyLoad<AreaAssemblyLazyLoadResolver>();
 
 			WebAssemblyHost host = builder.Build();

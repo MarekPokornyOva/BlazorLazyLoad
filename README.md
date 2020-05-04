@@ -27,7 +27,7 @@ Splitting an application speeds up its start and also saves network traffic.
 ### Notes
 - All is provided as is without any warranty.
 - The target of this concept has been "make it functional for any price". Therefore some pieces are bit "hacky".
-- Developed with version 3.2.0-preview4.20210.8 wasm.
+- Developed with version 3.2.0-rc1.20223.4 wasm.
 
 ### Release notes
 [See](./ReleaseNotes.md)
