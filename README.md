@@ -22,12 +22,12 @@ Splitting an application speeds up its start and also saves network traffic.
 5) Redirect navigation event to custom handler - see \Samples\01\BlazorApp\wwwroot\index.html.
 6) Create project containing lazy loaded pages - see \Samples\01\LazyLoadedArea.
 7) The built assembly has to be copied from wwwroot\\_framework\\_bin to the main project's wwwroot\\_framework\\bin folder. It's recommended to use gzipped versions.
-8) See \Samples\01\BlazorApp\LazyComponent for component level lazy loading.
+8) See \Samples\01\BlazorApp\Pages\LazyComponent for component level lazy loading.
 
 ### Notes
 - All is provided as is without any warranty.
 - The target of this concept has been "make it functional for any price". Therefore some pieces are bit "hacky".
-- Developed with version 3.2.0-rc1.20223.4 wasm.
+- Developed with version 3.2.0 wasm.
 
 ### Release notes
 [See](./ReleaseNotes.md)

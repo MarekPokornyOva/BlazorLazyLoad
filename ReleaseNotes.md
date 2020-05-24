@@ -1,3 +1,6 @@
+### 1.0.0 (2020-05-24)
+* AspNetCore.Components version 3.2.0 used.
+
 ### 0.2.4-3.2.0-20223.4 (2020-05-04)
 * AspNetCore.Components version 3.2.0-rc1.20223.4 used.
 * Avoid multiple download on LazyLoadComponentPlaceHolder.
